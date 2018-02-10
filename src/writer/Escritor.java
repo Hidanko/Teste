@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package writer;
 
 import java.awt.Desktop;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- *
- */
 public final class Escritor {
 
     private static final Escritor INSTANCE = new Escritor();
-    private File arquivo = new File("cadastros.txt");
+    private File arquivo;
+    private int versaoArquivo;
 
     private Escritor() {
 
@@ -30,15 +22,20 @@ public final class Escritor {
     }
 
     public void adicionarCadastro(String nome, int idade) throws Exception {
-        PrintWriter writer = new PrintWriter(arquivo, "UTF-8");
+        arquivo = new File("cadastros" + versaoArquivo + ".txt");
 
-        writer.write(nome + " \t" + idade);
+        FileWriter fw = new FileWriter(arquivo, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
 
-        writer.close();
+        pw.println(nome + " \t" + idade);
+
+        pw.close();
 
     }
 
     public void abrirArquivoTexto() {
+        versaoArquivo++;
         try {
             Desktop.getDesktop().open(arquivo);
         } catch (IOException ex) {

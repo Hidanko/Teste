@@ -28,7 +28,7 @@ public class Tela extends javax.swing.JFrame {
      */
     public Tela() {
         initComponents();
-        
+
         contadorTabela = 0;
     }
 
@@ -174,9 +174,9 @@ public class Tela extends javax.swing.JFrame {
             nomeCadastro = JOptionPane.showInputDialog("Digite o nome a ser cadastrado: ", null);
         }
         System.out.println("Nome: " + nomeCadastro);
-        
-        idadeCadastro = -1;
-        
+
+        idadeCadastro = 0;
+
         do {
             try {
                 idadeCadastro = Integer.parseInt(JOptionPane.showInputDialog("Digite a idade de " + nomeCadastro + ": ", null));
@@ -189,49 +189,48 @@ public class Tela extends javax.swing.JFrame {
 
         // Utilização dos valores
         adicionarLista(nomeCadastro, idadeCadastro);
-        
-        labelMedia.setText("Média atual: "+atualizarMedia());
-        
+        labelMedia.setText("Média atual: " + atualizarMedia());
+
         // Continuar?
-         if (JOptionPane.showConfirmDialog(null, "Adicionar mais?") == 0){
-             bottaoAdicionarActionPerformed(evt);
-         }
-        
-         
-         
+        if (JOptionPane.showConfirmDialog(null, "Adicionar mais?") == 0) {
+            bottaoAdicionarActionPerformed(evt);
+        }
+
+
     }//GEN-LAST:event_bottaoAdicionarActionPerformed
 
     private void botaoImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoImprimirActionPerformed
-       escritor = Escritor.getInstance();
-        
-        for (int i = 0; i < contadorTabela; i++){
-           String nome = (String) tabelaPrincipal.getModel().getValueAt(i, 0);
-           int idade = (int) tabelaPrincipal.getModel().getValueAt(i, 1);
-           
-           try {
-               escritor.adicionarCadastro(nome, idade);
-           } catch (Exception ex) {
-              ex.printStackTrace();
-           }
-       }
+        escritor = Escritor.getInstance();
+
+        for (int i = 0; i < contadorTabela; i++) {
+            String nome = (String) tabelaPrincipal.getModel().getValueAt(i, 0);
+            int idade = (int) tabelaPrincipal.getModel().getValueAt(i, 1);
+
+            try {
+                escritor.adicionarCadastro(nome, idade);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         escritor.abrirArquivoTexto();
-        
+
     }//GEN-LAST:event_botaoImprimirActionPerformed
     /* Adicionar dados recebidos na tabela */
-    private void adicionarLista (String nome, int idade){
+    private void adicionarLista(String nome, int idade) {
         tabelaPrincipal.getModel().setValueAt(nome, contadorTabela, 0);
         tabelaPrincipal.getModel().setValueAt(idade, contadorTabela, 1);
         contadorTabela++;
     }
-    
-    private double atualizarMedia(){
+
+    private double atualizarMedia() {
         double media = 0;
-        for (int i = 0; i < contadorTabela; i++){
-            media +=(int) tabelaPrincipal.getModel().getValueAt(i, 1);
+        for (int i = 0; i < contadorTabela; i++) {
+            media += (int) tabelaPrincipal.getModel().getValueAt(i, 1);
         }
         media /= contadorTabela;
         return media;
     }
+
     /**
      * @param args the command line arguments
      */
