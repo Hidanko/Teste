@@ -21,7 +21,15 @@ public final class Escritor {
         return INSTANCE;
     }
 
+    /* Para não sobreescrever os arquivos anteriores */
+    public void atualizarVersao() {
+        while (new File("cadastros" + versaoArquivo + ".txt").exists()) {
+            versaoArquivo++;
+        }
+    }
+
     public void adicionarCadastro(String nome, int idade) throws Exception {
+
         arquivo = new File("cadastros" + versaoArquivo + ".txt");
 
         FileWriter fw = new FileWriter(arquivo, true);
@@ -39,7 +47,6 @@ public final class Escritor {
         try {
             Desktop.getDesktop().open(arquivo);
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 }

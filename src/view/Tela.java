@@ -201,7 +201,8 @@ public class Tela extends javax.swing.JFrame {
 
     private void botaoImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoImprimirActionPerformed
         escritor = Escritor.getInstance();
-
+        escritor.atualizarVersao();
+        
         for (int i = 0; i < contadorTabela; i++) {
             String nome = (String) tabelaPrincipal.getModel().getValueAt(i, 0);
             int idade = (int) tabelaPrincipal.getModel().getValueAt(i, 1);
